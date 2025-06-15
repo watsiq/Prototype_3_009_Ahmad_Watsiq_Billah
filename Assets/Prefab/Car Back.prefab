@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4748657372219467652}
   - component: {fileID: 5451513094323737473}
   - component: {fileID: 3544523430292772402}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car2_LF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4123852247047668928}
   - component: {fileID: 7875349198327884754}
   - component: {fileID: 4768022404664832070}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car2_RR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 3745969874228773553}
   - component: {fileID: 3417400289484682111}
   - component: {fileID: 8252389814392798641}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car2_RF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,10 +260,10 @@ GameObject:
   - component: {fileID: 6268069733278782061}
   - component: {fileID: 8229087277043933109}
   - component: {fileID: 5612130116239118514}
-  - component: {fileID: 2840165419758162949}
+  - component: {fileID: 8289793144725333689}
   - component: {fileID: -4825048275364060925}
-  m_Layer: 0
-  m_Name: Car
+  m_Layer: 6
+  m_Name: Car Back
   m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2840165419758162949
+--- !u!114 &8289793144725333689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,16 +346,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6964801355821310078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440a5627d56ab88488bffb91568543d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a57be3c496984a499a10e7b5d42d314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeDistance: 1
+  safeDistance: 2
   carSpeed: 5
   tags:
   - Car
-  currentTrafficRoute: {fileID: 0}
   nextWaypoint: {fileID: 0}
-  currentWapointNumber: 4
 --- !u!195 &-4825048275364060925
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -389,7 +387,7 @@ GameObject:
   - component: {fileID: 1846348106861276617}
   - component: {fileID: 6185084187759064711}
   - component: {fileID: 446973915451198651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car2_LR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +470,7 @@ GameObject:
   - component: {fileID: 3972876623380272870}
   - component: {fileID: 4181421090392665686}
   - component: {fileID: 4170594513579940200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car2_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -3,95 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public class Car_AI : MonoBehaviour
+public class Car_AI : MonoBehaviour, ICarAI
 {
     public float safeDistance = 2f;
     public float carSpeed = 5f;
     public string[] tags;
-    
-    public GameObject currentTrafficRoute;
-    public GameObject nextWaypoint;
-    public int currentWapointNumber;
 
-    private NavMeshAgent _carNavmesh;
+    public GameObject currentTrafficRoute { get; set; }
+    public GameObject nextWaypoint { get; set; }
+    public int currentWaypointNumber { get; set; }
 
-    private void Start()
+    protected NavMeshAgent carNavmesh;
+
+    protected virtual void Start()
     {
-        _carNavmesh = this.gameObject.GetComponent<NavMeshAgent>();
-        _carNavmesh.speed = carSpeed;
+        carNavmesh = GetComponent<NavMeshAgent>();
+        carNavmesh.speed = carSpeed;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        RaycastHit hit;
-        Physics.Raycast(transform.position, transform.forward, out hit, safeDistance);
-
-        if(hit.transform)
-        {
-            for(int i=0;i<tags.Length;i++)
-            {
-                if(hit.transform.tag == tags[i])
-                {
-                    Stop();
-                }
-            }
-        }
+        if (DetectObstacle())
+            Stop();
         else
-        {
             Move();
-        }
     }
 
-
-    void Stop()
+    protected bool DetectObstacle()
     {
-        _carNavmesh.speed = 0;
+        return Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, safeDistance) &&
+               System.Array.Exists(tags, tag => hit.transform.CompareTag(tag));
     }
 
-    void Move()
+    protected void Stop()
     {
-        if(nextWaypoint == null)
+        carNavmesh.speed = 0;
+    }
+
+    protected virtual void Move()
+    {
+        if (nextWaypoint == null && currentWaypointNumber == 0)
         {
-            _carNavmesh.speed = 0;
+            Stop();
+            return;
         }
 
-        if (currentWapointNumber > 0)
+        if (currentWaypointNumber > 0)
         {
-            if (_carNavmesh.speed == 0)
-                _carNavmesh.speed = carSpeed;
+            if (carNavmesh.speed == 0) carNavmesh.speed = carSpeed;
+            carNavmesh.SetDestination(currentTrafficRoute.transform.GetChild(currentWaypointNumber - 1).position);
 
-            _carNavmesh.SetDestination(currentTrafficRoute.transform.GetChild(currentWapointNumber - 1).transform.position);
-
+            if (Vector3.Distance(transform.position, currentTrafficRoute.transform.GetChild(currentWaypointNumber - 1).position) <= 1)
+                currentWaypointNumber--;
         }
-        else
+        else if (nextWaypoint != null)
         {
-            if (nextWaypoint != null)
+            if (carNavmesh.speed == 0) carNavmesh.speed = carSpeed;
+            carNavmesh.SetDestination(nextWaypoint.transform.position);
+
+            if (Vector3.Distance(transform.position, nextWaypoint.transform.position) <= 1)
             {
-                if (_carNavmesh.speed == 0)
-                    _carNavmesh.speed = carSpeed;
-                _carNavmesh.SetDestination(nextWaypoint.transform.position);
-            }
-        }
-
-        if(currentWapointNumber > 0)
-        {
-            float distance = Vector3.Distance(transform.position, currentTrafficRoute.transform.GetChild(currentWapointNumber - 1).transform.position);
-            if (distance <= 1)
-                currentWapointNumber -= 1;
-        }
-        else
-        {
-            if (nextWaypoint != null)
-            {
-                float distance = Vector3.Distance(transform.position, nextWaypoint.transform.position);
-                if (distance <= 1)
-                {
-                    currentWapointNumber = 4;
-                    currentTrafficRoute = nextWaypoint.transform.parent.gameObject;
-                }
+                currentWaypointNumber = 4;
+                currentTrafficRoute = nextWaypoint.transform.parent.gameObject;
             }
         }
     }
-
 }

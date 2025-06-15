@@ -6,10 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Traffic Jam.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Traffic_Jam_Fix.unity
+    guid: 9f7eb80e0219e0247b524bff5097546e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 39d5f4818f655974cb99d9311619f1e9,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 97bfe9c960070944ca001865b7b7e77d,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 6a5958be11c25d74da0aabbdd74d7846,
       type: 2}
